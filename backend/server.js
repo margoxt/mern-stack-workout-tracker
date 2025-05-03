@@ -1,3 +1,6 @@
+//This method will attach the .env variables for the process.env
+require('dotenv').config()
+
 //Require the express package through a constant and this can be used as a function
 const express = require('express')
 
@@ -15,6 +18,10 @@ app.get('/', (req, res) => {
 })   
 
 //Listen for requests from a certain port number
-app.listen(4000, () => {
-    console.log('listening on port 4000')
+/*Notes:
+-process.env is letting the code go to the .env file
+-process.env.PORT is getting the port number
+*/
+app.listen(process.env.PORT, () => {
+    console.log('listening on port')
 })
