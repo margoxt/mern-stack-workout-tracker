@@ -7,6 +7,19 @@ const express = require('express')
 //Start the express app
 const app = express()
 
+//Global Middleware
+/*Note:
+- Middleware is any code that executes for getting requests on the server and sending a response. 
+- An example is (req, res) => code below
+- the .use is to use middleware
+- () => {} fire a function for every request that comes in
+- next function is to prepare for the next req properly
+- middleware helps blocking requests*/
+app.use((req, res, next) => {
+    console.log(req.path, req.method)
+    next()
+})
+
 //Reacts to request so this is a route handler
 /* Notes:
 - The backslash means its a local host
@@ -23,5 +36,5 @@ app.get('/', (req, res) => {
 -process.env.PORT is getting the port number
 */
 app.listen(process.env.PORT, () => {
-    console.log('listening on port')
+    console.log('listening on port', process.env.PORT)
 })
