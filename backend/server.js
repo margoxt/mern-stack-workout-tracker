@@ -4,6 +4,9 @@ require('dotenv').config()
 //Require the express package through a constant and this can be used as a function
 const express = require('express')
 
+//Require the exported workouts
+const workoutRoutes = require('./routers/workouts')
+
 //Start the express app
 const app = express()
 
@@ -14,21 +17,20 @@ const app = express()
 - the .use is to use middleware
 - () => {} fire a function for every request that comes in
 - next function is to prepare for the next req properly
-- middleware helps blocking requests*/
+- middleware helps blocking requests
+- the post and patch workout can be accessed with the request argument, and we use middleware*/
+app.use(express.json()) //It looks if the request has data sending to the server, if yes then it passes it to the request object and access it in the request handler
 app.use((req, res, next) => {
     console.log(req.path, req.method)
     next()
 })
 
-//Reacts to request so this is a route handler
-/* Notes:
-- The backslash means its a local host
-- req is the variable to handle the request and res is the response
-- res.json will send a response json
-*/
-app.get('/', (req, res) => {
-    res.json({mssg: 'Welcome to the App'})
-})   
+//This grabes all routes attached in the workoutfile and uses it on the app
+/*Notes:
+-only find the routes when it comes to a specific path.
+-when we fire a request to the '/api/workouts, then use the routes' */
+app.use('/api/workouts', workoutRoutes)
+
 
 //Listen for requests from a certain port number
 /*Notes:
