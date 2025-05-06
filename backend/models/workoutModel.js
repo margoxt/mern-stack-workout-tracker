@@ -25,4 +25,4 @@ const workoutSchema = new Schema({  //Pass in an argument that we define the sch
 
 
 //Model based on the Schema; apply the schema to a model and we use the model to interact with the collection of that name
-module.export = mongoose.model('Workout', workoutSchema)
+module.exports = mongoose.model('workoutModel', workoutSchema)

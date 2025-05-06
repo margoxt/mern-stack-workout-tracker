@@ -1,6 +1,9 @@
 //Express = require the express package to manage here
 const express = require('express')
 
+//Import the workout model
+const Workout = require('../models/workoutModel')
+
 //Creates an instance of the router
 const router = express.Router()
 
@@ -15,8 +18,14 @@ router.get('/:id', (req, res) => {
 })
 
 //POST a new workout
-router.post('/', (req, res) => {
-    res.json({mssg: 'POST a new workout'})
+router.post('/', async (req, res) => {
+    const {title, reps, load} = req.body
+    try{
+        const workout = await Workout.create({title, reps, load})   //This is a async function
+        res.status(200).json(workout)
+    }catch(error){
+        res.status(400).json({error: error.message})
+    }
 })
 
 //DELETE a workout
