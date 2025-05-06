@@ -2,7 +2,7 @@
 const express = require('express')
 
 //Creates an instance of the router
-const router = express.router()
+const router = express.Router()
 
 //GET all workouts, one slash only to get all the workouts
 router.get('/', (req, res) => {
@@ -31,7 +31,7 @@ router.patch('/:id', (req, res) =>{
 
 
 //Export the Router
-modules.exports = router
+module.exports = router
 
 
 

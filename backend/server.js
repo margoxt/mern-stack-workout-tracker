@@ -5,7 +5,7 @@ require('dotenv').config()
 const express = require('express')
 
 //Require the exported workouts
-const workoutRoutes = require('./routers/workouts')
+const workoutRoutes = require('./routes/workouts')
 
 //Start the express app
 const app = express()
