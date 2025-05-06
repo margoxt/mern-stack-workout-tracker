@@ -4,6 +4,9 @@ require('dotenv').config()
 //Require the express package through a constant and this can be used as a function
 const express = require('express')
 
+//Import mongoose
+const mongoose = require('mongoose')
+
 //Require the exported workouts
 const workoutRoutes = require('./routes/workouts')
 
@@ -31,12 +34,28 @@ app.use((req, res, next) => {
 -when we fire a request to the '/api/workouts, then use the routes' */
 app.use('/api/workouts', workoutRoutes)
 
+//Connect to DB
+mongoose.connect(process.env.MONG_URI)
+//Since connecting takes time, when done it does the then function
+.then(() => {
+    //Listen for requests from a certain port number
+    app.listen(process.env.PORT, () => {
+        console.log('connected to db & listening on port', process.env.PORT)
+    })
 
-//Listen for requests from a certain port number
-/*Notes:
+})
+
+//If there is an error, it does the catch function
+.catch((error) => {
+    console.log(error)
+})
+
+
+
+
+
+/*-----------------------------------------------------------
+Notes:
 -process.env is letting the code go to the .env file
 -process.env.PORT is getting the port number
 */
-app.listen(process.env.PORT, () => {
-    console.log('listening on port', process.env.PORT)
-})
