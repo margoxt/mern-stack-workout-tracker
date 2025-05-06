@@ -1,8 +1,8 @@
 //Create a bunch of functions that can reference the router files in the workouts.js
 
-//Import workout model
-const workoutModel = require('../models/workoutModel')
+//Imports
 const Workout = require('../models/workoutModel')
+const mongoose = require('mongoose')
 
 
 //GET ALL Workouts
@@ -14,9 +14,16 @@ const getWorkouts = async (req, res) =>{
 //GET SINGLE Workout
 const getWorkout = async (req, res) =>{
     const {id} = req.params     //We are getting the id from the request parameters
+    
+    //Check if the id exists
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({message: 'That workout is not on the lists'})
+    }
+
     const workout = await Workout.findById(id)
 
-    if (!workout) {     //If that workout doesn't exist
+    //If that workout doesn't exist
+    if (!workout) {     
         return res.status(404).json({error: 'That workout is not on the list'})
     }
     res.status(200).json(workout)
