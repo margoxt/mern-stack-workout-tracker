@@ -28,7 +28,7 @@ app.use((req, res, next) => {
     next()
 })
 
-//This grabes all routes attached in the workoutfile and uses it on the app
+//This grabs all routes attached in the workoutfile and uses it on the app
 /*Notes:
 -only find the routes when it comes to a specific path.
 -when we fire a request to the '/api/workouts, then use the routes' */

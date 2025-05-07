@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 
 //GET ALL Workouts
 const getWorkouts = async (req, res) =>{
-    const workouts = await workoutModel.find({}).sort({createdAt: -1}) //Descending order, so the newest once will be at the top
+    const workouts = await Workout.find({}).sort({createdAt: -1}) //Descending order, so the newest once will be at the top
     res.status(200).json(workouts)
 }
 
@@ -43,14 +43,50 @@ const createWorkout = async(req, res) =>{
 }
 
 //DELETE Workout
+const deleteWorkout = async(req, res) =>{
+    const {id} = req.params     //Get the ID
 
+    //Check if the id exists
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({message: 'That workout is not on the list'})
+    }
+
+    //Finding the workout
+    const workout = await Workout.findOneAndDelete({_id: id})
+
+    //Check if workout exists
+    if (!workout) {  
+        return res.status(404).json({error: 'That workout is not on the list'})
+    }
+    res.status(200).json(workout)
+}
 
 //UPDATE Workout
+const updateWorkout = async(req, res) =>{
+    const {id} = req.params
 
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: 'That workout is not on the list'})
+    }
+    
+    //Update the workout
+    const workout = await Workout.findOneAndUpdate({_id: id}, {
+        ...req.body
+    })
+
+    //Check if the workout exists
+    if(!workout){
+        res.status(400).json({error: 'That workout is not on the list'})
+    }
+    res.status(200).json(workout)
+
+}
 
 //Export the different functions
 module.exports = {
     createWorkout,
     getWorkouts,
     getWorkout,
+    deleteWorkout,
+    updateWorkout
 }
