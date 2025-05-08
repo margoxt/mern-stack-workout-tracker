@@ -5,7 +5,7 @@ const WorkoutForm = () =>{
     const [title, setTitle] = useState('');
     const [reps, setReps] = useState('');
     const [load, setLoad] = useState('');
-    const [error, setError] = useState('');                         //this state is for errors
+    const [error, setError] = useState(null);                         //this state is for errors
 
 
     const handleSubmit = async (e) => {
@@ -36,7 +36,7 @@ const WorkoutForm = () =>{
             setLoad('')
             //Set the error to null and inform the user that the request has been successful
             setError(null)
-            console.log('New workout added!')
+            console.log('New workout added!: ', json)
         }
     }
 
@@ -67,7 +67,7 @@ const WorkoutForm = () =>{
             />
 
             <button>Add Workout</button>
-            
+
             {/* This is to check if there is an error and output the error in a clean manner, that's why it's in a div */}
             {error && <div className="error">{error}</div>}
         </form>
