@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 //Import WorkoutDetails.js
 import WorkoutDetails from '../components/WorkoutDetails';
+import WorkoutForm from '../components/WorkoutForm';
 
 const Home = () =>{
     const [workouts, setWorkouts] = useState(null)      //Update Local States
@@ -28,9 +29,11 @@ const Home = () =>{
 
                 /* Helps the components to output a bit more template and shows all elements inside the workout*/
                 <WorkoutDetails key ={workout._id} workout={workout}/>
-
                 ))}
             </div>
+
+            {/* The workoutForm is outside because it's not supposed to be directly connected to the list of workouts */}
+            <WorkoutForm/>  
         </div>
     )
 }
