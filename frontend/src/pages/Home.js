@@ -1,14 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Home = () =>{
-
+    const [workouts, setWorkouts] = useState(null)      //Update Local States
+    
     //Fires a function when the component is rendered
     useEffect(() =>{
-        //Update Local States
-        const [workouts, setWorkouts] = useState(null)
-
         const fetchWorkouts = async () =>{
-            const response = await fetch('http://localhost:4000/api/workouts')  //fetch the backend server and store the data in the 'response' object
+            const response = await fetch('/api/workouts')  //fetch the backend server and store the data in the 'response' object
             const json = await response.json()  //This will then contain an array of objects
 
             //Check if the response is valid
@@ -16,9 +14,7 @@ const Home = () =>{
                 setWorkouts(json)
             }
         }
-
         fetchWorkouts() //Calls the function
-
     }, [])  //Brackets so its a dependency array and so it will make the useEffect fire only once everytime its opened
 
     return (
