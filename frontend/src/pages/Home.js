@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 
+//Import WorkoutDetails.js
+import WorkoutDetails from '../components/WorkoutDetails';
+
 const Home = () =>{
     const [workouts, setWorkouts] = useState(null)      //Update Local States
     
@@ -22,7 +25,10 @@ const Home = () =>{
             <div className="workouts">
                 {/* Cycle through workouts but with conditional statements */}
                 {workouts && workouts.map((workout) => (
-                <p key={workout._id}>{workout.title}</p>
+
+                /* Helps the components to output a bit more template and shows all elements inside the workout*/
+                <WorkoutDetails key ={workout._id} workout={workout}/>
+
                 ))}
             </div>
         </div>
