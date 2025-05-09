@@ -8,7 +8,10 @@ const WorkoutForm = () =>{
     const [title, setTitle] = useState('');
     const [reps, setReps] = useState('');
     const [load, setLoad] = useState('');
-    const [error, setError] = useState(null);                         //this state is for errors
+
+    //For error handling
+    const [error, setError] = useState(null);
+    const [emptyFields, setEmptyFields] = useState([])
 
 
     const handleSubmit = async (e) => {
@@ -31,14 +34,18 @@ const WorkoutForm = () =>{
 
         if(!response.ok){
             setError(json.error)
+            setEmptyFields(json.emptyFields)                        //Whatever empty field we get, we put it back inside the useState([])
         }
+
         if(response.ok){
+            //Set the error to null and inform the user that the request has been successful
+            setError(null)
+            //Set the emptyfield to an empty array so we dont see those errors in the page.
+            setEmptyFields([])
             //Reset the states because the request has already been pushed
             setTitle('')
             setReps('')
             setLoad('')
-            //Set the error to null and inform the user that the request has been successful
-            setError(null)
             console.log('New workout added!: ', json)
             //Dispatch the new workout to the context, the workout we just added is the json
             dispatch({type: 'CREATE_WORKOUT', payload: json})
@@ -55,6 +62,8 @@ const WorkoutForm = () =>{
                 type="text" 
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
+                //Style the different inputs by giving the imports a conditional class
+                className={emptyFields.includes('title') ? 'error': ''}     //If the title is empty, add the error class
             />
 
             <label>Amount of Reps: </label>
@@ -62,6 +71,7 @@ const WorkoutForm = () =>{
                 type="number" 
                 onChange={(e) => setReps(e.target.value)}
                 value={reps}
+                className={emptyFields.includes('reps') ? 'error': ''}
             />
 
             <label>Load (in kg): </label>
@@ -69,6 +79,7 @@ const WorkoutForm = () =>{
                 type="number" 
                 onChange={(e) => setLoad(e.target.value)}
                 value={load}
+                className={emptyFields.includes('load') ? 'error': ''}
             />
 
             <button>Add Workout</button>

@@ -32,6 +32,20 @@ const getWorkout = async (req, res) =>{
 //CREATE New Workout
 const createWorkout = async(req, res) =>{
     const {title, reps, load} = req.body
+
+    //Detect which postfields are empty when they send the requests
+    let emptyFields = []
+
+    //Check and store which postfields are empty and put it in the empty list
+    if(!title) {emptyFields.push('title')}
+    if(!reps) {emptyFields.push('reps')}
+    if(!load) {emptyFields.push('load')}
+    
+    /*Notes: Check if the empty Field is greater than zero, it means that one of the fields is in the array
+             and we dont need to go to the try block anymore and just tell the clients which field is missing.*/
+    if(emptyFields.length > 0){
+        return res.status(400).json({error: 'Please fill in all fields', emptyFields})
+    }
     
     //Add document to DB
     try{
