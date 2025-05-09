@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 
-//Import WorkoutDetails.js
+//Import from Files
 import WorkoutDetails from '../components/WorkoutDetails';
 import WorkoutForm from '../components/WorkoutForm';
 
 const Home = () =>{
-    const [workouts, setWorkouts] = useState(null)      //Update Local States
-    
+    const {workouts, dispatch} =  useWorkoutsContext()
+
     //Fires a function when the component is rendered
     useEffect(() =>{
         const fetchWorkouts = async () =>{
@@ -15,7 +16,7 @@ const Home = () =>{
 
             //Check if the response is valid
             if (response.ok){
-                setWorkouts(json)
+                dispatch({type: 'SET_WORKOUTS', payload: json})
             }
         }
         fetchWorkouts() //Calls the function
