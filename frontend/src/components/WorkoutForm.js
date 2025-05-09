@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 
 const WorkoutForm = () =>{
+     //Update Context state to keep the ui and database in sync
+    const {dispatch} = useWorkoutsContext();
     //Create state for each of the properties of the workout
     const [title, setTitle] = useState('');
     const [reps, setReps] = useState('');
@@ -37,6 +40,8 @@ const WorkoutForm = () =>{
             //Set the error to null and inform the user that the request has been successful
             setError(null)
             console.log('New workout added!: ', json)
+            //Dispatch the new workout to the context, the workout we just added is the json
+            dispatch({type: 'CREATE_WORKOUT', payload: json})
         }
     }
 
