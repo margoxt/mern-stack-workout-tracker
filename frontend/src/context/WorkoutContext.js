@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react'
 
 //Create Context and store it in a constant, we are exporting it because we need it later in another file
-export const WorkoutContext = createContext()
+export const WorkoutsContext = createContext()
 
 export const workoutsReducer = (state, action) =>{
     switch(action.type){
@@ -15,7 +15,7 @@ export const workoutsReducer = (state, action) =>{
 }
 
 //Provide that Context to our application component tree by making a context provider component
-export const WorkoutsContextProvider = ({children}) =>{    //The children component represents the structuring in the index.js, because we are talking about the <App/>
+export const WorkoutsContextProvider = ({children}) => {    //The children component represents the structuring in the index.js, because we are talking about the <App/>
     const [state, dispatch] = useReducer(workoutsReducer, {
         workouts: null      //Initial value for the object
     })
