@@ -20,7 +20,7 @@ const Home = () =>{
             }
         }
         fetchWorkouts() //Calls the function
-    }, [])  //Brackets so its a dependency array and so it will make the useEffect fire only once everytime its opened
+    }, [dispatch])  //Brackets so its a dependency array and so it will make the useEffect fire only once everytime its opened
 
     return (
         <div className="home">
