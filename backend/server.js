@@ -9,6 +9,8 @@ const mongoose = require('mongoose')
 
 //Require the exported workouts
 const workoutRoutes = require('./routes/workouts')
+const userRoutes = require('./routes/user')
+
 
 //Start the express app
 const app = express()
@@ -33,6 +35,7 @@ app.use((req, res, next) => {
 -only find the routes when it comes to a specific path.
 -when we fire a request to the '/api/workouts, then use the routes' */
 app.use('/api/workouts', workoutRoutes)
+app.use('/api/user', userRoutes)
 
 //Connect to DB
 mongoose.connect(process.env.MONG_URI)
