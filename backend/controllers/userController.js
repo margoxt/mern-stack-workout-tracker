@@ -7,7 +7,16 @@ const loginUser = async(req, res) =>{
 
 //Controller Function for Signup User
 const signupUser = async(req, res) =>{
-    res.json({mssg: 'signup user'})
+    //Grab the email and password from the request body
+    const {email, password} = req.body
+
+    //Catch any possible errors
+    try{
+        const user = await User.signup(email, password)
+        res.status(200).json({email, user})
+    } catch(error){
+        res.status(400).json({error: error.message})
+    }
 }
 
 

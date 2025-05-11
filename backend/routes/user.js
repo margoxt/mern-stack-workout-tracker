@@ -5,14 +5,10 @@ const router = express.Router()             //This makes an instance of the expr
 const { loginUser, signupUser } = require('../controllers/userController')
 
 //Login Route
-router.post('/login', (loginUser) =>{
-
-})
+router.post('/login', loginUser)
 
 //Signup Route
-router.post('/signup', (signupUser) =>{
-    
-})
+router.post('/signup', signupUser)
 
 
 //Exporting the file

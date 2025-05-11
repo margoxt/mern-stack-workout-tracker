@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const bcrypt = require('bcrypt')
 
 //User Schema, defining the structure of the database
 const userSchema = new Schema({
@@ -13,5 +14,24 @@ const userSchema = new Schema({
         required: true,
     }
 })
+
+//Hash Passwords by using a static signup method
+userSchema.statics.signup = async function(email, password){    //Use the function method, not the arrow method, because we are using the "this" keyword
+    const exists = await this.findOne({email})      //Use the word this to refer to this file, because the User export is at the bottom.
+    
+    //If the user already exists, return an error
+    if(exists){
+        throw Error('Email is already in use.')
+    }
+    
+    //Generate salt and hash the password 
+    const salt = await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(password, salt)
+
+    //Take the password and email, and store it in the database
+    const user = await this.create({email, password: hash})
+
+    return user
+}
 
 module.exports = mongoose.model('User', userSchema)
