@@ -49,4 +49,30 @@ userSchema.statics.signup = async function(email, password){    //Use the functi
     return user
 }
 
+//Static Login Method: Check if email is within database and if hashed password matches with email
+userSchema.statics.login = async function(email, password){
+
+    //Check if the email and password has an inputted value
+    if(!email || !password){
+        throw Error('All fields must be filled.')
+    }
+
+    //Find the user in the database with that email
+    const user = await this.findOne({email})
+
+    if(!user){  //If we can't find anyone with that email, throw error
+        throw Error('Incorrect email.')
+    }
+
+    //Match the passwords. The password is the plain one and the user.password is the hashed one.
+    const match = await bcrypt.compare(password, user.password)
+
+    if(!match){
+        throw Error('Incorrect password')
+    }
+
+    return user     //If the password is right, return the user
+}
+
+
 module.exports = mongoose.model('User', userSchema)
