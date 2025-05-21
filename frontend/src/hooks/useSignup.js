@@ -1,5 +1,4 @@
 //This page will handle the logic of hitting the API endpoints to sign the user using the details
-
 import { useState } from 'react';
 import { useAuthContext } from './useAuthContext';
 
@@ -33,6 +32,7 @@ export const useSignUp = () =>{
             //Update the authContext with the user email we get back
             dispatch({type: 'LOGIN', payload: json})
 
+            //Update loading state
             setIsLoading(false)
         }
     }
