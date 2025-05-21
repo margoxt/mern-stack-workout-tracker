@@ -1,32 +1,31 @@
-import { createContext, userReducer } from 'react';
+import { createContext, useReducer } from 'react'
 
 export const AuthContext = createContext()
 
-export const authReducer = (state, action) =>{
-    switch(action.type){
-        case 'LOGIN': return {user: action.payload}
-        case 'LOGOUT': return {user: null}
-        default: return state
-    }
+export const authReducer = (state, action) => {
+  switch (action.type) {
+    case 'LOGIN': return { user: action.payload }
+    case 'LOGOUT': return { user: null }
+    default: return state
+  }
 }
-
 
 //Create custom component that would wrap our App.js and provide a value for this Context
-export const AuthContextProvider = ({children}) =>{
-    const [state, dispatch] = userReducer(authReducer, {
-        user: null
-    })
+export const AuthContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(authReducer, { 
+    user: null
+  })
 
-    console.log('AuthContext state: ', state)
+  console.log('AuthContext state:', state)
+  
+  //Return the component
+  return (
+    <AuthContext.Provider value={{ ...state, dispatch }}>
+      { children }
+    </AuthContext.Provider>
+  )
 
-    //Return the component
-    return(
-        <AuthContext.Provider value={{...state, dispatch}}>
-            {children}
-        </AuthContext.Provider>
-    )
 }
-
 
 
 /*Note:
