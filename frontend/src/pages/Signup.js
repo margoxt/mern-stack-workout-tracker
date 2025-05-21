@@ -27,7 +27,7 @@ const Signup = () =>{
             <input 
                 type="password"
                 onChange={(e) => setPassword(e.target.value) }     //Change the value of the email state. Target = the input
-                value ={email}
+                value ={password}
             />
 
             <button disabled={isLoading}>Sign Up</button>          {/*Disable the Signup button when isLoading is true */}
