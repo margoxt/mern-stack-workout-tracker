@@ -16,16 +16,16 @@ const Signup = () =>{
 
             <label>Email Address:</label>
             <input 
-            type="email"
-            onChange={(e) => setEmail(e.target.value) }     //Change the value of the email state. Target = the input
-            value ={email}
+                type="email"
+                onChange={(e) => setEmail(e.target.value) }     //Change the value of the email state. Target = the input
+                value ={email}
             />
 
             <label>Password:</label>
             <input 
-            type="password"
-            onChange={(e) => setPassword(e.target.value) }     //Change the value of the email state. Target = the input
-            value ={email}
+                type="password"
+                onChange={(e) => setPassword(e.target.value) }     //Change the value of the email state. Target = the input
+                value ={email}
             />
 
             <button>Sign Up</button>
