@@ -13,7 +13,7 @@ export const useSignUp = () =>{
         setError(null)                                      //Resetting the error to remove the error display everytime the user tries to signup 
         
         //Post Method
-        const response = await fetch('/user/api/signup', {
+        const response = await fetch('/api/user/signup', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
