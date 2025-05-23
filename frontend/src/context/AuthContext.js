@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react'
+import { createContext, useEffect, useReducer } from 'react'
 
 export const AuthContext = createContext()
 
@@ -15,6 +15,14 @@ export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, { 
     user: null
   })
+
+  useEffect(() =>{  //Only fire this useEffect once when the component AuthContext Provider first renders. Checks if we have token
+    const user = JSON.parse(localStorage.getItem('user'))   //JSON.parse turns JSon string back into a JavaScript Object
+    
+    if (user){
+      dispatch({type: 'LOGIN', payload: user})  //Only updates if we have a value for the user or Localstorage(user)
+    }
+  }, [])
 
   console.log('AuthContext state:', state)
   
