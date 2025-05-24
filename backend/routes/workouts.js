@@ -14,7 +14,7 @@ const requireAuth = require('../middleware/requireAuth')
 //Creates an instance of the router
 const router = express.Router()
 
-//Find this middleware function before going to the routes
+//Find this middleware function before going to the routes, require authorization for all workout routes
 router.use(requireAuth)
 
 //GET all workouts, one slash only to get all the workouts
