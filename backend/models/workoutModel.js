@@ -19,6 +19,10 @@ const workoutSchema = new Schema({  //Pass in an argument that we define the sch
     load:{
         type: Number,
         required: true
+    },
+    user_id:{   //Associating every workout document with a particular user
+        type: String,
+        required: true
     }
     //Second Argument: when we add a new object the program will automatically do a timestamp, to say when the document was created
 }, {timestamps: true})
