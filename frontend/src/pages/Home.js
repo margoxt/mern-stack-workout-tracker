@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 
 //Import from Files
@@ -7,11 +8,14 @@ import WorkoutForm from '../components/WorkoutForm';
 
 const Home = () =>{
     const {workouts, dispatch} =  useWorkoutsContext()
+    const {user} = useAuthContext()
 
     //Fires a function when the component is rendered
     useEffect(() =>{
         const fetchWorkouts = async () =>{
-            const response = await fetch('/api/workouts')  //fetch the backend server and store the data in the 'response' object
+            const response = await fetch('/api/workouts', {     //fetch the backend server and store the data in the 'response' object if the user is logged in
+                headers: {'Authorization': `Bearer ${user.token}`}
+            })  
             const json = await response.json()  //This will then contain an array of objects
 
             //Check if the response is valid
@@ -19,8 +23,11 @@ const Home = () =>{
                 dispatch({type: 'SET_WORKOUTS', payload: json})
             }
         }
-        fetchWorkouts() //Calls the function
-    }, [dispatch])  //Brackets so its a dependency array and so it will make the useEffect fire only once everytime its opened
+
+        if(user){
+            fetchWorkouts() //Calls the function
+        } 
+    }, [dispatch, user])  //Brackets so its a dependency array and so it will make the useEffect fire only once everytime its opened
 
     return (
         <div className="home">

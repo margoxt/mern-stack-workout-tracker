@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 
 const WorkoutForm = () =>{
      //Update Context state to keep the ui and database in sync
     const {dispatch} = useWorkoutsContext();
+    const {user} = useAuthContext();
+    
     //Create state for each of the properties of the workout
     const [title, setTitle] = useState('');
     const [reps, setReps] = useState('');
@@ -18,6 +21,11 @@ const WorkoutForm = () =>{
         //Remove the default action a.k.a refreshing the page
         e.preventDefault();
 
+        if(!user){
+            setError('You must be logged in.')
+            return 
+        }
+
         //This will send the body of the request    
         const workout = {title, reps, load}
 
@@ -27,7 +35,8 @@ const WorkoutForm = () =>{
             method: 'POST',                                         //this sends data using the POST method
             body: JSON.stringify(workout),                          //converting the workout object into a JSON string to send a request body. Because the request created is not json formatted data
             headers: {                                              //this tells the server you are sending JSON data
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         })
         const json = await response.json()
