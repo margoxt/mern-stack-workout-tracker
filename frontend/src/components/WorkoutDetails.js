@@ -21,7 +21,7 @@ const WorkoutDetails = ({workout}) =>{
         
         if (response.ok){
             dispatch({type: 'DELETE_WORKOUT', payload: json})
-        }
+        }   
     }
 
     return(
