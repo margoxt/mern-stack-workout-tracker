@@ -25,6 +25,6 @@ It helped me learn full-stack development, authentication, protected routes, con
 - This is a learning project and not intended for production use.
 - Based on a YouTube tutorial to understand full-stack app structure.
 
-## 📚 Credits
+## 📚 Reference
 
-- Big thanks to Net Ninja for the tutorials: https://www.youtube.com/@NetNinja.
+- Net Ninja tutorial: https://www.youtube.com/@NetNinja.
